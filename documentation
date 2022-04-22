@@ -1,0 +1,110 @@
+1.logo
+api/logo/fetch(db table:logotable folder:api/logo.js description:fetch logoimage in homepage)
+api/logo/insert(db table:logotable folder:api/logo.js description:insert logoimages)
+api/logo/delete/:id(db table:logotable folder:api/logo.js description:delete logoimage)
+api/logo/update(db table:logotable path:api/logo.js description:update)
+
+
+
+homeopathy
+
+
+api/about/abouthomeopathy (db table:Homeopathy folder:api/about.js desc:fetch homeopathy details in homepage)
+api/about/abouthomeopathy/:id (db table:Homeopathy folder:api/about.js desc:update homeopathy  details by id  in  admin page)
+api/about/aboutinformation(db table:About folder:api/about desc:update doctor profile  information)
+api/about/aboutdoctor(db table:ABout folder:api/about desc:update about information )
+
+
+
+Achievements
+
+api/achievements/achievements( db table:Achievements folder:api/achievements desc:fetch all achievements in home page)
+api/achievements/achievements(db table:Achievements folder:api/achievements desc:insert achievements for doctor)
+api/achievements/achievements/:id(db table:Achievements folder:api/achievements desc:delete achievements by particular id)
+api/achievements/achievements/:id(db table:Achievements folder:api/achievements desc:update achievements by particulat id)
+
+
+
+
+whyus 
+
+api/whyabout/whyabout( db table:whyHome  folder:api/why.js desc:fetch whyabout homeopathy details in homepage) 
+api/whyabout/whyabout/1( db table:whyHome  folder:api/why.js desc:update whyabout homeopathy details by id  in  admin page) 
+
+
+
+testmonials
+
+api/testmonials/getcarousel (db table:testmonials  folder:api/testmonials.js  desc:fetch testmonials details in homepage )
+api/testmonials/testmonials (db table:testmonials  folder:api/testmonials.js  desc:insert  testmonials details in  doctor page )
+api/testmonials/testmonials/:id(db table:testmonials folder:api/testmonails.js desc: delete testmonials for doctor)
+
+
+Blogs
+
+api/blogs/showblogs(db table :Homeoblogs folder:api/blogs.js  desc: fetch all blogs(only users) in homepage)
+api/blogs/blogs(db table:Homeoblogs folder:api/blogs.js desc:insert blogs by admin )
+
+
+
+
+
+login 
+
+api/signin/login(db table:signup folder:api/signin.js decs:insert email and password for doctors and admin);
+api/signin/logout(db table:session folder:api/signin.js desc:logout for everyone)
+
+
+signin
+
+api/signup/insert(db table:signup folder:api/signup.js desc:registeration for  users)
+api/signup/changepassword(db table:signup folder:api/signup desc:updated password after login)
+
+
+banners
+
+api/banner/banner(dbtable:banners folder:api/banners.js desc :fetch banner images in homepage)
+api/banner/banner/:id((dbtable:banners folder:api/banners.js desc :update  banner images in  admin page))
+api/banner/banner/:id((dbtable:banners folder:api/banners.js desc :delete  banner images in  admin page))
+
+
+
+bookingappoinments
+api/patient/patientbynumber/:id (db:patient  folder:api/patient.js desc:if user is already booked to get user details with email and  username )
+api/bookappointment/patientfetch(db:patient folder:api/patient.js desc:fetch all unique patient)
+api/bookappointment/bookingdetails(db table :bookapp folder:api/bookingappointments.js desc: fetch all booking details with duplicates also)
+api/appointment/schedule/set/:doc_id(db table :Doctorschedule folder:api/appointment.js desc:insert   time slots  in  doctor page)
+api/appointment/slots/fetchAll(db table: DoctorSchedule folder:api/appointment.js desc:fetch all slots in doctorschedule)
+api/bookappointment/buymedicines(db table:buymed folder:api/bookappointment.js desc:fetch  all booking medicines by user)
+api/appointment/schedule/:id(db table :Doctorschedule folder:api/doctorschedule.js desc:fetch all schedule in doctor page)
+api/appointment//schedule/set/:id/:date(db table:Doctorschedule and Booking folder:api/appointment.js descdelete slots in doctorpage)
+api/bookappointment/bookingdetails(db table :bookapp folder:api/bookingappointments desc:booking appointments for users)
+api/appointment//getdate/:doc_id/:date(db table :Doctorschedule folder:api/appointment.js desc:getting date for bookingappointments for users)
+)
+api/patientmedicines/postmedicines(db table :patientmedicines,patientreviews folder:api/patientmedicines desc:post reviews for patient)
+api/patientmedicines/getreviews/id(db table: patient reviews folder:api/patientreviews desc:fetch all reviews for particular patients)
+
+
+
+price 
+api/price/price(db table:price folder:api/price.js desc:buying  medicines for how many days(20,40,60) and also shipping charges)
+api/price/price(db table:price folder:api/price.js desc:update shipping charges and local charges)
+
+
+
+contact
+api/admin/contact/fetch(db table:contact folder:api/admin.js desc:fetch contact details by admin page )
+api/admin/contact(db table"contact folder:api/admin.js desc:update contact details  in admin page)
+
+
+drug
+api/drug/drug (db table:Drug folder:api/Drugs desc:fetch all medicines in doctor page)
+api/drug/drug (db table:Drug folder:api/drug desc :insert medicines for doctors)
+api/drug/drug/drug_id(db table:Drugs folder:api/Drugs desc:delete drug by id)
+api/drug/drug/drug_id(db table:Drugs folder:api/drugs desc:update  medicines by particular id)
+
+dose
+api/dose/dose(db table:Dose folder:api/dose desc:fetch all doses in doctorpage)
+api/dose/dose(db table"DOse folder:api/dosee desc:insert doses)
+api/dose/dose/:id(db table :Dose folder:api/dose desc:delete dose by id)
+api/dose/dose/:iod(db table:Dose folder:api/dose desc:update dose by particular id)

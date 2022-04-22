@@ -1,0 +1,438 @@
+//APPOINTMENT TABLE
+
+CREATE TABLE IF NOT EXITS `Appointment` ( 
+    `app_id` varchar(256) NOT NULL DEFAULT '',
+    `name` varchar(20) DEFAULT NULL,
+    `user_id` varchar(256) DEFAULT NULL,
+    `phonenumber` bigint(50) DEFAULT NULL,
+    `time` time DEFAULT NULL,
+    `chambarname` int(11) DEFAULT NULL,
+    `status` tinyint(1) DEFAULT NULL,
+    PRIMARY KEY (`app_id`),
+    KEY `chambarname` (`chambarname`),
+    KEY `user_id` (`user_id`),
+    CONSTRAINT `Appointment_ibfk_1` FOREIGN KEY (`chambarname`) REFERENCES `Chambar` (`cha_id`),
+    CONSTRAINT `Appointment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `Patient` (`pat_id`) ON UPDATE CASCADE
+  ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+  //BOOKING TABLE
+
+  CREATE TABLE  IF NOT EXITS`Booking` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `startAt` time NOT NULL,
+  `endAt` time NOT NULL,
+  `sch_id` varchar(256) NOT NULL,
+  `cha_id` int(11) NOT NULL,
+  `doc_id` varchar(256) DEFAULT NULL,
+  `mode` tinyint(1) NOT NULL DEFAULT '0',
+  `user_id` varchar(256) NOT NULL DEFAULT '141',
+  `booked` tinyint(1) DEFAULT '0',
+  `status` int(11) DEFAULT NULL,
+  `bookingdate` bigint(20) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  `payment_status` tinyint(1) DEFAULT NULL,
+  `payment_ref_id` varchar(256) DEFAULT NULL,
+  `review` varchar(256) DEFAULT NULL,
+  `items` varchar(1000) DEFAULT NULL,
+  `reports` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `doc_id` (`doc_id`),
+  CONSTRAINT `Booking_ibfk_1` FOREIGN KEY (`doc_id`) REFERENCES `Doctor` (`doc_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=148 DEFAULT CHARSET=latin1;
+
+
+//CHAMBAR TABLE
+
+CREATE TABLE  IF NOT EXITS `Chambar` (
+  `cha_id` int(11) NOT NULL AUTO_INCREMENT,
+  `doc_id` varchar(256) DEFAULT NULL,
+  `deptname` int(11) DEFAULT NULL,
+  `chambarname` varchar(20) DEFAULT NULL,
+  `title` varchar(20) DEFAULT NULL,
+  `appointmentLimit` int(50) DEFAULT NULL,
+  `address` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`cha_id`),
+  KEY `deptname` (`deptname`),
+  KEY `doc_id` (`doc_id`),
+  CONSTRAINT `Chambar_ibfk_1` FOREIGN KEY (`deptname`) REFERENCES `Department` (`dept_id`),
+  CONSTRAINT `Chambar_ibfk_2` FOREIGN KEY (`doc_id`) REFERENCES `Doctor` (`doc_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+
+
+//DEPARTMENT TABLE
+
+CREATE TABLE  IF NOT EXITS `Department` (
+  `dept_id` int(11) NOT NULL AUTO_INCREMENT,
+  `deptname` varchar(50) DEFAULT NULL,
+  `doc_id` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`dept_id`),
+  KEY `doc_id` (`doc_id`),
+  CONSTRAINT `Department_ibfk_1` FOREIGN KEY (`doc_id`) REFERENCES `Doctor` (`doc_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+
+
+//DOCTOR TABLE
+
+
+CREATE TABLE IF NOT EXITS  `Doctor` (
+  `doc_id` varchar(256) NOT NULL DEFAULT '',
+  `doctorimg` varchar(256) DEFAULT NULL,
+  `doctorname` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `gender` varchar(20) DEFAULT NULL,
+  `phonenumber` varchar(20) DEFAULT NULL,
+  `access` int(11) DEFAULT NULL,
+  `signupdate` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`doc_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+CREATE TABLE IF NOT EXITS  `Doctorschedule` (
+  `sch_id` varchar(256) NOT NULL,
+  `doc_id` varchar(256) NOT NULL,
+  `date` varchar(256) NOT NULL,
+  `startAT` time NOT NULL,
+  `endAt` time NOT NULL,
+  `timePerPatient` int(11) NOT NULL DEFAULT '15',
+  `cha_id` int(11) NOT NULL,
+  `mode` tinyint(1) DEFAULT '0',
+  `gap` int(11) NOT NULL,
+  PRIMARY KEY (`sch_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+
+CREATE TABLE  IF NOT EXITS `Drug` (
+  `drug_id` varchar(50) NOT NULL DEFAULT '',
+  `drugname` varchar(256) DEFAULT NULL,
+  `description` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`drug_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE  IF NOT EXITS `Education` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(256) NOT NULL,
+  `description` varchar(256) NOT NULL,
+  `startAt` varchar(256) NOT NULL,
+  `endAt` varchar(256) NOT NULL,
+  `user_id` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+
+
+CREATE TABLE  IF NOT EXITS `Experience` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(256) NOT NULL,
+  `user_id` varchar(256) NOT NULL,
+  `description` varchar(256) DEFAULT NULL,
+  `startAt` varchar(256) DEFAULT NULL,
+  `endAt` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+
+
+CREATE TABLE  IF NOT EXITS `Location` (
+  `loc_id` int(11) NOT NULL AUTO_INCREMENT,
+  `doc_id` varchar(100) DEFAULT NULL,
+  `location` int(11) DEFAULT NULL,
+  PRIMARY KEY (`loc_id`),
+  KEY `location` (`location`),
+  CONSTRAINT `Location_ibfk_1` FOREIGN KEY (`location`) REFERENCES `ServiceLocation` (`ser_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+
+
+CREATE TABLE  IF NOT EXITS `Notification` (
+  `notifi_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(256) DEFAULT NULL,
+  `isActive` tinyint(1) DEFAULT NULL,
+  `token` varchar(256) DEFAULT NULL,
+  `doc_id` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`notifi_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE  IF NOT EXITS `Patient` (
+  `pat_id` varchar(256) NOT NULL DEFAULT '',
+  `doc_id` varchar(256) DEFAULT NULL,
+  `user_id` varchar(256) DEFAULT NULL,
+  `name` varchar(20) DEFAULT NULL,
+  `email` varchar(256) DEFAULT NULL,
+  `phonenumber` bigint(50) DEFAULT NULL,
+  `gender` varchar(20) DEFAULT NULL,
+  `lastvisited` date DEFAULT NULL,
+  `nextvisited` date DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`pat_id`),
+  KEY `user_id` (`user_id`),
+  KEY `doc_id` (`doc_id`),
+  CONSTRAINT `Patient_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `signup` (`user_id`) ON UPDATE CASCADE,
+  CONSTRAINT `Patient_ibfk_2` FOREIGN KEY (`doc_id`) REFERENCES `Doctor` (`doc_id`),
+  CONSTRAINT `Patient_ibfk_3` FOREIGN KEY (`doc_id`) REFERENCES `Doctor` (`doc_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+CREATE TABLE  IF NOT EXITS `Profileinfo` (
+  `prof_id` varchar(256) NOT NULL DEFAULT '',
+  `user_id` varchar(256) NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `degree` varchar(256) DEFAULT NULL,
+  `experienceyears` varchar(20) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `phone` varchar(30) NOT NULL,
+  `aboutme` varchar(256) NOT NULL,
+  `doctorimage` varchar(256) NOT NULL,
+  `specialist` int(11) DEFAULT NULL,
+  `gender` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`prof_id`),
+  KEY `specialist` (`specialist`),
+  CONSTRAINT `Profileinfo_ibfk_1` FOREIGN KEY (`specialist`) REFERENCES `speacalist` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE  IF NOT EXITS `Rollbased` (
+  `roll_id` varchar(50) NOT NULL DEFAULT '',
+  `doc_id` varchar(256) DEFAULT NULL,
+  `user_id` varchar(256) NOT NULL,
+  `sta_id` varchar(256) DEFAULT NULL,
+  `isActive` tinyint(1) DEFAULT NULL,
+  `permission` varchar(256) NOT NULL,
+  PRIMARY KEY (`roll_id`),
+  KEY `doc_id` (`doc_id`),
+  KEY `sta_id` (`sta_id`),
+  CONSTRAINT `Rollbased_ibfk_1` FOREIGN KEY (`doc_id`) REFERENCES `Doctor` (`doc_id`),
+  CONSTRAINT `Rollbased_ibfk_2` FOREIGN KEY (`sta_id`) REFERENCES `Staff` (`sta_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE  IF NOT EXITS `Schedule` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `day` varchar(20) DEFAULT NULL,
+  `daystatus` tinyint(1) DEFAULT NULL,
+  `start` time DEFAULT NULL,
+  `end` time DEFAULT NULL,
+  `mode` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+CREATE TABLE  IF NOT EXITS `ServiceLocation` (
+  `ser_id` int(11) NOT NULL AUTO_INCREMENT,
+  `Location` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`ser_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+
+
+CREATE TABLE  IF NOT EXITS `Staff` (
+  `sta_id` varchar(25) NOT NULL,
+  `cha_id` int(11) DEFAULT NULL,
+  `deptname` int(11) DEFAULT NULL,
+  `doc_id` varchar(256) DEFAULT NULL,
+  `name` varchar(20) DEFAULT NULL,
+  `designation` varchar(50) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `phonenumber` bigint(50) DEFAULT NULL,
+  `doj` varchar(256) DEFAULT NULL,
+  `isActive` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`sta_id`),
+  KEY `cha_id` (`cha_id`),
+  KEY `deptname` (`deptname`),
+  KEY `doc_id` (`doc_id`),
+  CONSTRAINT `Staff_ibfk_1` FOREIGN KEY (`cha_id`) REFERENCES `Chambar` (`cha_id`),
+  CONSTRAINT `Staff_ibfk_2` FOREIGN KEY (`deptname`) REFERENCES `Department` (`dept_id`),
+  CONSTRAINT `Staff_ibfk_3` FOREIGN KEY (`doc_id`) REFERENCES `Doctor` (`doc_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+
+
+CREATE TABLE  IF NOT EXITS `blogs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(256) DEFAULT NULL,
+  `details` varchar(500) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `category` varchar(32) DEFAULT NULL,
+  `image` varchar(256) DEFAULT NULL,
+  `isactive` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+
+
+CREATE TABLE IF NOT EXITS  `blogscategory` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(256) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `DETAILS` varchar(256) DEFAULT NULL,
+  `isActive` tinyint(1) DEFAULT NULL,
+  `image` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE  IF NOT EXITS `connection` (
+  `connection_id` varchar(256) NOT NULL DEFAULT '',
+  `reciver_id` varchar(256) DEFAULT NULL,
+  `sender_id` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`connection_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+CREATE TABLE  IF NOT EXITS `contact` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `number` bigint(40) DEFAULT NULL,
+  `email` varchar(256) NOT NULL,
+  `address` varchar(1000) NOT NULL,
+  `timeStart` varchar(32) NOT NULL,
+  `timeEnd` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+
+
+CREATE TABLE  IF NOT EXITS `doctorspecalist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `doc_id` varchar(256) NOT NULL,
+  `specalist` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE  IF NOT EXITS `message` (
+  `message_id` varchar(256) NOT NULL DEFAULT '',
+  `receiver_id` varchar(256) DEFAULT NULL,
+  `message` varchar(256) DEFAULT NULL,
+  `messageType` varchar(256) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `readtime` time DEFAULT NULL,
+  `timestamp` bigint(20) DEFAULT NULL,
+  `readstatus` bigint(20) DEFAULT NULL,
+  `sender_id` varchar(256) DEFAULT NULL,
+  `connection_id` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`message_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE  IF NOT EXITS `registration` (
+  `doctor` tinyint(1) DEFAULT NULL,
+  `users` tinyint(1) DEFAULT NULL,
+  `last_edited_on` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE IF NOT EXITS  `review` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `doctor_id` varchar(256) DEFAULT NULL,
+  `user_id` varchar(256) DEFAULT NULL,
+  `rating` int(11) DEFAULT NULL,
+  `description` varchar(1000) DEFAULT NULL,
+  `isactive` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `doctor_id` (`doctor_id`),
+  CONSTRAINT `review_ibfk_1` FOREIGN KEY (`doctor_id`) REFERENCES `Doctor` (`doc_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=148 DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE  IF NOT EXITS `sessions` (
+  `session_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `expires` int(11) unsigned NOT NULL,
+  `data` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
+  PRIMARY KEY (`session_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE IF NOT EXITS `signup` (
+  `user_id` varchar(256) NOT NULL DEFAULT '',
+  `name` varchar(30) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `password` varchar(256) DEFAULT NULL,
+  `telephone` varchar(21) DEFAULT NULL,
+  `accessLevel` int(11) DEFAULT NULL,
+  `verified` tinyint(1) DEFAULT NULL,
+  `signupdate` bigint(50) DEFAULT NULL,
+  `lastsignin` bigint(50) DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE  IF NOT EXITS `socketid` (
+  `user_id` varchar(256) DEFAULT NULL,
+  `soc_id` varchar(256) DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  `logouttime` bigint(20) NOT NULL,
+  `logintime` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE  IF NOT EXITS `speacalist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(256) DEFAULT NULL,
+  `details` varchar(256) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `isactive` tinyint(1) DEFAULT NULL,
+  `image` varchar(256) DEFAULT NULL,
+  `category` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+
+
+CREATE TABLE IF NOT EXITS  `specalistscategory` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(256) DEFAULT NULL,
+  `image` varchar(256) DEFAULT NULL,
+  `details` varchar(256) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `isactive` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+
+
+
+
+
+CREATE TABLE  IF NOT EXITS `logotable` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `brand` varchar(20) DEFAULT NULL,
+  `logoimages` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

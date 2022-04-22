@@ -1,0 +1,319 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Dr. Varsha's Homeopathy RestAPIs",
+        "description": "Backend APIs",
+        "license": {
+            "name": "Sigma",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "servers": [
+        {
+            "url": "/",
+            "description": "Local Dev, or from Heroku"
+        },
+        {
+            "url": "/api/",
+            "description": "With docker-compose and nginx proxy"
+        }
+    ],
+    "tags": [
+        {
+            "name": "About",
+            "description": "API for about in the system"
+        }
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/about/aboutfetch": {
+            "get": {
+                "tags": [
+                    "About"
+                ],
+                "summary": "Get all about details in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Cats"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "About"
+                ],
+                "summary": "update/insert for About hospital",
+                "requestBody": {
+                    "description": "About Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Cat"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        
+        
+            "/api/bookappointment/bookingdetails":{
+                "get":{
+                    "tags":[
+                        "BOOKINGAPPOINTMENT"
+                    ],
+                    "summary":"fetch booking appointment details",
+                    "responses": {
+                        "200": {
+                            "description": "OK",
+                            "schema": {
+                                "$ref": "#/definitions/Cats"
+                            }
+                        }
+                    }
+
+                },
+                "post": {
+                    "tags": [
+                        "BOOKINGAPPOINTMENT"
+                    ],
+                    "summary": "insert  booking appoinments",
+                    "requestBody": {
+                        "description": "Booking Object",
+                        "required": true,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/Booked"
+                                }
+                            }
+                        }
+                    },
+                    "produces": [
+                        "application/json"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "OK",
+                            "schema": {
+                                "$ref": "#/definitions/id"
+                            }
+                        },
+                        "400": {
+                            "description": "Failed. Bad post data."
+                            
+
+                    }
+                    }
+                }
+            },
+            "/api/achievements/achievements":{
+                "get":{
+                    "tags":[
+                        "ACHIEVEMENTS"
+                    ],
+                    "summary": "fetch all achievements",
+                    "responses": {
+                        "200":{
+                            "description": "OK",
+                            "schema":{
+                                "$ref":"#definitions/Cat"
+                            }
+                        }
+                    }
+                },
+                "post": {
+                    "tags": [
+                        "ACHIEVEMENTS"
+                    ],
+                    "summary": "insert achievements",
+                    "requestBody": {
+                        "description": "Achievement Object",
+                        "required": true,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/Achievements"
+                                }
+                            }
+                        }
+                    },
+                    "produces": [
+                        "application/json"
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "OK",
+                            "schema": {
+                                "$ref": "#/definitions/id"
+                            }
+                        },
+                        "400": {
+                            "description": "Failed. Bad post data."
+                            
+
+                    }
+                    }
+                },
+               
+                    "delete":{
+                        
+                        "tags":[
+                            "ACHIEVEMENTS"
+                        ],
+                        "parameters": [
+                            {
+                                "in": "path",
+                                "name": "id",
+                                "required": true,
+                                "description": "Delete Achievement with id",
+                                "schema": {
+                                    "$ref": "#/definitions/id"
+                                }
+        
+                            }
+                           
+                        ],
+                        "responses": {
+                            "200":{
+                                "description": "OK",
+                                "schema": {
+                                    "$ref": "#/definitions/id"
+                                }
+                            },
+                            "400":{
+                                "description": "Failed NOT DELETEED."
+                            }
+                        }
+                    }
+               
+
+                
+                
+            }
+       
+        
+    },
+    "definitions": {
+        "id": {
+            "properties": {
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "Cat": {
+            "type": "object",
+            "properties": {
+                "about": {
+                    "type": "string"
+                },
+                "aboutwhy": {
+                    "type": "string"
+                },
+                "highlights": {
+                    "type": "boolean"
+                }
+                
+            }
+        },
+        "Cats": {
+            "type": "object",
+            "properties": {
+                "cats": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Cat"
+                    }
+                }
+            }
+        },
+        "Booked":{
+            "type":"object",
+            "properties":{
+                "name":{
+                    "type":"string"
+                },
+                "email":{
+                    "type":"string"
+                },
+                "doctorname":{
+                    "type":"string"
+                },
+                "doc_id":{
+                    "type":"string"
+                },
+                "bookingdate":{
+                    "type":"date"
+                },
+                "time":{
+                    "type":"time"
+                },
+                "payment":{
+                    "type":"string"
+                },
+                "paymentstatus":{
+                    "type":"boolean"
+                }
+            }
+        },
+        "booked":{
+            "type":"object",
+            "properties":{
+                "book":{
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Booked"
+                    }
+
+                }
+            }
+        },
+        "Achievements":{
+            "type":"object",
+            "properties":{
+                "name":{
+                    "type":"string"
+                },
+                "image":{
+                    "type":"string"
+                }
+            }
+        },
+        "achievements":{
+            "type":"object",
+            "properties":{
+                "achievement":{
+                    "type":"object",
+                    "additionalProperties":{
+                        "$ref":"#/definitions/Achievements"
+                    }
+                }
+            }
+        }
+    }
+}
